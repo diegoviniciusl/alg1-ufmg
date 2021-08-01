@@ -2,43 +2,37 @@
 #include <fstream>
 #include <algorithm>
 
-vector<VaccinationCenter *> getVaccinationCenters(ifstream &file)
+vector<VaccinationCenter *> getVaccinationCenters()
 {
-    string quantity;
-    getline(file, quantity);
+    string quantity, capacity, x, y;
+    cin >> quantity;
     vector<VaccinationCenter *> vaccinationCenters;
-    string data;
     for (int i = 0; i < stoi(quantity); ++i)
     {
+        cin >> capacity >> x >> y;
         VaccinationCenter *vaccinationCenter = new VaccinationCenter();
         vaccinationCenter->setId(i);
-        getline(file, data, ' ');
-        vaccinationCenter->setCapacity(stoi(data));
-        getline(file, data, ' ');
-        vaccinationCenter->setX(stoi(data));
-        getline(file, data);
-        vaccinationCenter->setY(stoi(data));
+        vaccinationCenter->setCapacity(stoi(capacity));
+        vaccinationCenter->setX(stoi(x));
+        vaccinationCenter->setY(stoi(y));
         vaccinationCenters.push_back(vaccinationCenter);
     }
     return vaccinationCenters;
 }
 
-vector<Person *> getPersons(ifstream &file)
+vector<Person *> getPersons()
 {
-    string quantity;
-    getline(file, quantity);
+    string quantity, age, x, y;
+    cin >> quantity;
     vector<Person *> persons;
-    string data;
     for (int i = 0; i < stoi(quantity); ++i)
     {
+        cin >> age >> x >> y;
         Person *person = new Person();
         person->setId(i);
-        getline(file, data, ' ');
-        person->setAge(stoi(data));
-        getline(file, data, ' ');
-        person->setX(stoi(data));
-        getline(file, data);
-        person->setY(stoi(data));
+        person->setAge(stoi(age));
+        person->setX(stoi(x));
+        person->setY(stoi(y));
         persons.push_back(person);
     }
     return persons;
@@ -131,9 +125,8 @@ void cleanUp(vector<Person *> &persons, vector<VaccinationCenter *> &vaccination
 
 int main(int argc, char *argv[])
 {
-    ifstream file(argv[1]);
-    vector<VaccinationCenter *> vaccinationCenters = getVaccinationCenters(file);
-    vector<Person *> persons = getPersons(file);
+    vector<VaccinationCenter *> vaccinationCenters = getVaccinationCenters();
+    vector<Person *> persons = getPersons();
     prioritizeVaccinationCenters(persons, vaccinationCenters);
     setVaccinationCenters(persons);
     printResult(vaccinationCenters);

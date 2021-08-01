@@ -21,7 +21,6 @@ public:
     void pushPersonId(int personId);
     int getId();
     int getCapacity();
-    int getOccupation();
     int getX();
     int getY();
     vector<int> getPersonsIds();
